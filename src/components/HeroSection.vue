@@ -22,10 +22,8 @@
 import ButtonLink from './ButtonLink';
 
 export default {
-  name: 'Hero',
-  components: {
-    ButtonLink,
-  },
+  name: 'HeroSection',
+  components: { ButtonLink },
   data () {
     return {
       title: 'Eric Tran',
@@ -35,14 +33,14 @@ export default {
       `,
       links: [ {
         text: 'Twitter',
-        url: 'https://twitter.com/EricTran5791',
+        url: 'https://twitter.com/EricTran5791'
       }, {
         text: 'GitHub',
-        url: 'https://github.com/EricTran5791',
+        url: 'https://github.com/EricTran5791'
       }, {
         text: 'LinkedIn',
-        url: 'https://www.linkedin.com/in/erictran5791',
-      }],
+        url: 'https://www.linkedin.com/in/erictran5791'
+      }]
     };
   }
 };

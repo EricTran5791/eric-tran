@@ -1,17 +1,17 @@
 <template>
   <div id="app">
-    <hero/>
+    <hero-section/>
   </div>
 </template>
 
 <script>
-import Hero from './components/Hero';
+import HeroSection from './components/HeroSection';
 
 export default {
   name: 'app',
   components: {
-    Hero,
-  },
+    HeroSection
+  }
 };
 </script>
 

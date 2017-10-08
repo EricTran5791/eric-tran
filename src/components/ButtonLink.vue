@@ -12,7 +12,15 @@
 <script>
 export default {
   name: 'ButtonLink',
-  props: ['link'],
+  props: {
+    link: {
+      type: Object,
+      required: true,
+      validator: function (value) {
+        return !!value && !!value.text && !!value.url;
+      }
+    }
+  }
 };
 </script>
 
@@ -26,7 +34,7 @@ export default {
   margin: 0 $margin/2;
   border-radius: 4px;
   box-shadow: $boxShadowButton;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
     background-color: lighten($colorSecondary, 3);
