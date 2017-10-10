@@ -1,13 +1,14 @@
 <template>
   <div class="hero">
     <div class="hero__card">
-      <div class="hero__img"></div>
+      <div class="hero__img"  v-bind:style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
       <div class="hero__title">{{ title }}</div>
       <div class="hero__text">{{ text }}</div>
       <div class="hero__button-container">
         <button-link
           v-for="link in links"
           v-bind:link="link"
+          buttonClass="secondary"
           :key="link.text"/>
       </div>
       <div class="hero__email">
@@ -26,6 +27,7 @@ export default {
   components: { ButtonLink },
   data () {
     return {
+      imageUrl: 'static/images/eric-tran-headshot.jpg',
       title: 'Eric Tran',
       text: `
       I'm a front end web developer at Kinaxis.
@@ -73,7 +75,6 @@ export default {
   }
 
   &__img {
-    background-image: url('../assets/images/eric-tran-headshot.jpg');
     background-position: center 10%;
     background-size: cover;
     height: 150px;

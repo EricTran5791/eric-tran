@@ -1,17 +1,17 @@
 <template>
   <div class="projects-section">
     <section-header text="Projects"/>
-    <item-gallery/>
+    <project-gallery/>
   </div>
 </template>
 
 <script>
 import SectionHeader from './SectionHeader';
-import ItemGallery from './ItemGallery';
+import ProjectGallery from './ProjectGallery';
 
 export default {
   name: 'ProjectsSection',
-  components: { SectionHeader, ItemGallery }
+  components: { SectionHeader, ProjectGallery }
 };
 </script>
 
@@ -20,5 +20,9 @@ export default {
   background-color: $colorWhite;
   min-height: 80vh;
   padding: $marginSection $margin*2;
+
+  @media (max-width: $mediaPhone) {
+    padding: $marginSection/2 $margin;
+  }
 }
 </style>

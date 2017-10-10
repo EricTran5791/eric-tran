@@ -1,12 +1,12 @@
 <template>
-  <div class="item-picker">
-    <div class="item-picker__item-container">
+  <div class="project-picker">
+    <div class="project-picker__item-container">
       <div
-        class="item-picker__item"
-        v-bind:class="{ 'item-picker__item--selected': selectedItem === index }"
+        class="project-picker__item"
+        v-bind:class="{ 'project-picker__item--selected': selectedProject.name === item.name }"
         v-for="(item, index) in items"
         :key="item.name"
-        v-on:click="select(index)">
+        v-on:click="selectProject(item)">
         {{ item.name }}
       </div>
     </div>
@@ -14,29 +14,31 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 export default {
-  name: 'ItemPicker',
+  name: 'ProjectPicker',
   props: {
     items: {
       type: Array,
       required: true
     }
   },
-  data () {
-    return {
-      selectedItem: 0
-    };
-  },
+  computed: mapState({
+    selectedProject: state => state.selectedProject
+  }),
   methods: {
-    select: function (index) {
-      this.selectedItem = index;
+    selectProject: function (item) {
+      this.$store.commit('selectProject', {
+        project: item
+      });
     }
   }
 };
 </script>
 
 <style lang="scss" scoped>
-.item-picker {
+.project-picker {
   display: flex;
   justify-content: center;
 

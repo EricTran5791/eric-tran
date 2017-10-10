@@ -1,10 +1,12 @@
 <template>
   <a
     class="button-link"
+    v-bind:class="{'button-link--secondary': buttonClass === 'secondary'}"
     v-bind:href="link.url"
     target="_blank"
     rel="noopener noreferrer"
     >
+    <i class="material-icons" v-if="iconClass">{{ iconClass }}</i>
     {{ link.text }}
   </a>
 </template>
@@ -17,8 +19,16 @@ export default {
       type: Object,
       required: true,
       validator: function (value) {
-        return !!value && !!value.text && !!value.url;
+        return !!value && !!value.url;
       }
+    },
+    buttonClass: {
+      type: String,
+      required: false
+    },
+    iconClass: {
+      type: String,
+      required: false
     }
   }
 };
@@ -26,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .button-link {
-  background-color: $colorSecondary;
+  background-color: $colorPrimary;
   color: $colorWhite;
   display: flex;
   text-decoration: none;
@@ -37,9 +47,21 @@ export default {
   transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
 
   &:hover {
-    background-color: lighten($colorSecondary, 3);
+    background-color: lighten($colorPrimary, 3);
     transform: translateY(-2px);
     box-shadow: $boxShadowCard;
+  }
+
+  &--secondary {
+    background-color: $colorSecondary;
+
+    &:hover {
+      background-color: lighten($colorSecondary, 3);
+    }
+  }
+
+  .material-icons {
+    margin-right: $margin/2;
   }
 }
 </style>
