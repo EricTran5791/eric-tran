@@ -18,9 +18,7 @@ export default {
     link: {
       type: Object,
       required: true,
-      validator: function (value) {
-        return !!value && !!value.url;
-      }
+      validator: value => !!value && !!value.url
     },
     buttonClass: {
       type: String,
