@@ -11,18 +11,13 @@ import ProjectsSection from './components/ProjectsSection';
 
 export default {
   name: 'app',
-  components: {
-    HeroSection,
-    ProjectsSection
-  }
+  components: { HeroSection, ProjectsSection }
 };
 </script>
 
 <style lang="scss">
 #app {
-  @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400');
-  @import url('https://fonts.googleapis.com/css?family=Heebo:700');
-  @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+  @import url('https://fonts.googleapis.com/css?family=Fira+Sans:400|Heebo:700|Material+Icons');
   @include font-body;
 }
 

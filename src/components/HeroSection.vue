@@ -1,7 +1,7 @@
 <template>
   <div class="hero">
     <div class="hero__card">
-      <div class="hero__img"  v-bind:style="{ backgroundImage: 'url(' + imageUrl + ')' }"></div>
+      <div class="hero__img" v-bind:style="{ backgroundImage: `url(${imageUrl})` }"></div>
       <div class="hero__title">{{ title }}</div>
       <div class="hero__text">{{ text }}</div>
       <div class="hero__button-container">

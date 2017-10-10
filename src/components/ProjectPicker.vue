@@ -5,8 +5,8 @@
         class="project-picker__item"
         v-bind:class="{ 'project-picker__item--selected': selectedProject.name === item.name }"
         v-for="(item, index) in items"
-        :key="item.name"
-        v-on:click="selectProject(item)">
+        v-on:click="selectProject(item)"
+        :key="item.name">
         {{ item.name }}
       </div>
     </div>
@@ -28,7 +28,7 @@ export default {
     selectedProject: state => state.selectedProject
   }),
   methods: {
-    selectProject: function (item) {
+    selectProject (item) {
       this.$store.commit('selectProject', {
         project: item
       });
