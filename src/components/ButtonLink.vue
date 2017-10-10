@@ -27,11 +27,11 @@ export default {
 <style lang="scss" scoped>
 .button-link {
   background-color: $colorSecondary;
-  color: $colorLightBackground;
+  color: $colorWhite;
   display: flex;
   text-decoration: none;
   padding: $margin/2 $margin;
-  margin: 0 $margin/2;
+  margin: $margin/2;
   border-radius: 4px;
   box-shadow: $boxShadowButton;
   transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;

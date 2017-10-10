@@ -1,16 +1,19 @@
 <template>
   <div id="app">
     <hero-section/>
+    <projects-section/>
   </div>
 </template>
 
 <script>
 import HeroSection from './components/HeroSection';
+import ProjectsSection from './components/ProjectsSection';
 
 export default {
   name: 'app',
   components: {
-    HeroSection
+    HeroSection,
+    ProjectsSection
   }
 };
 </script>
@@ -24,7 +27,7 @@ export default {
 }
 
 body {
-  background-color: $colorLightBackground;
+  background-color: $colorWhite;
   margin: 0;
 }
 </style>

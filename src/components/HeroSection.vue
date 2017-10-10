@@ -8,11 +8,11 @@
         <button-link
           v-for="link in links"
           v-bind:link="link"
-          v-bind:key="link.text"/>
+          :key="link.text"/>
       </div>
       <div class="hero__email">
         <i class="material-icons">email</i>
-        me [at] erictran.ca
+        {{ email }}
       </div>
     </div>
   </div>
@@ -40,7 +40,8 @@ export default {
       }, {
         text: 'LinkedIn',
         url: 'https://www.linkedin.com/in/erictran5791'
-      }]
+      }],
+      email: 'me [at] erictran.ca'
     };
   }
 };
@@ -52,9 +53,9 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 100vh;
-  background-color: $colorLightBackground;
-  background: linear-gradient($colorLightBackground, darken($colorLightBackground, 10));
+  min-height: 75vh;
+  background-color: $colorWhite;
+  background: linear-gradient($colorWhite, darken($colorWhite, 10));
 
   @media (max-width: $mediaPhone) {
     justify-content: flex-start;
@@ -82,12 +83,13 @@ export default {
   }
 
   &__title {
-    color: $colorLightBackground;
+    color: $colorWhite;
     @include font-header;
+    text-align: center;
   }
 
   &__text {
-    color: $colorLightBackground;
+    color: $colorWhite;
     @include font-body;
     text-align: center;
     margin-bottom: $margin;
@@ -95,12 +97,14 @@ export default {
 
   &__button-container {
     display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     margin-bottom: $margin;
   }
 
   &__email {
     display: inline-flex;
-    color: $colorLightBackground;
+    color: $colorWhite;
     @include font-body;
 
     i {
