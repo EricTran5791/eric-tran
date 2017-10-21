@@ -1,7 +1,3 @@
-export type State = {
-    selectedProject: Project | undefined;
-};
-
 export type Link = {
     text?: string;
     url: string;

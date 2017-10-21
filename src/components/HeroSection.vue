@@ -6,7 +6,7 @@
       <div class="hero__text">{{ text }}</div>
       <div class="hero__button-container">
         <button-link
-          v-for="link in links"
+          v-for="link in socialLinks"
           v-bind:link="link"
           buttonClass="secondary"
           :key="link.text"/>
@@ -23,10 +23,12 @@
 import Vue from 'vue';
 import Component from 'vue-class-component';
 import ButtonLink from './ButtonLink.vue';
+import { mapState } from 'vuex';
 import { Link } from '../types';
 
 @Component({
-  components: { ButtonLink }
+  components: { ButtonLink },
+  computed: mapState(['socialLinks'])
 })
 export default class HeroSection extends Vue {
   imageUrl = 'static/images/eric-tran-headshot.jpg';
@@ -35,16 +37,7 @@ export default class HeroSection extends Vue {
     I'm a front end web developer at Kinaxis.
     I enjoy building web applications with a focus on intuitive user experiences.
     `;
-  links: Link[] = [{
-    text: 'Twitter',
-    url: 'https://twitter.com/EricTran5791'
-  }, {
-    text: 'GitHub',
-    url: 'https://github.com/EricTran5791'
-  }, {
-    text: 'LinkedIn',
-    url: 'https://www.linkedin.com/in/erictran5791'
-  }];
+  socialLinks: Link[];
   email = 'me [at] erictran.ca';
 }
 </script>
