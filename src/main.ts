@@ -1,8 +1,6 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue';
 import Vuex from 'vuex';
-import App from './App';
+import App from './App.vue';
 
 Vue.use(Vuex);
 
@@ -13,13 +11,12 @@ const store = new Vuex.Store({
     selectedProject: {}
   },
   mutations: {
-    selectProject (state, payload) {
+    selectProject (state: any, payload: any) {
       state.selectedProject = payload.project;
     }
   }
 });
 
-/* eslint-disable no-new */
 new Vue({
   el: '#app',
   store,
