@@ -11,14 +11,17 @@
   </a>
 </template>
 
-<script>
-export default {
-  name: 'ButtonLink',
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import { Link } from '../types';
+
+@Component({
   props: {
     link: {
       type: Object,
       required: true,
-      validator: value => !!value && !!value.url
+      validator: (value: Link) => !!value && !!value.url
     },
     buttonClass: {
       type: String,
@@ -29,7 +32,12 @@ export default {
       required: false
     }
   }
-};
+})
+export default class ButtonLink extends Vue {
+  link: Link;
+  buttonClass: string;
+  iconClass: string;
+}
 </script>
 
 <style lang="scss" scoped>

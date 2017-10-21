@@ -13,28 +13,30 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
 import { mapState } from 'vuex';
+import { Project } from '../types';
 
-export default {
-  name: 'ProjectPicker',
+@Component({
   props: {
     items: {
       type: Array,
       required: true
     }
   },
-  computed: mapState({
-    selectedProject: state => state.selectedProject
-  }),
-  methods: {
-    selectProject (item) {
-      this.$store.commit('selectProject', {
-        project: item
-      });
-    }
+  computed: mapState(['selectedProject'])
+})
+export default class ProjectPicker extends Vue {
+  items: Project[];
+
+  selectProject(project: Project) {
+    this.$store.commit('selectProject', {
+      project
+    });
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

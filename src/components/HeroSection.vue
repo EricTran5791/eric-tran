@@ -19,34 +19,34 @@
   </div>
 </template>
 
-<script>
-import ButtonLink from './ButtonLink';
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import ButtonLink from './ButtonLink.vue';
+import { Link } from '../types';
 
-export default {
-  name: 'HeroSection',
-  components: { ButtonLink },
-  data () {
-    return {
-      imageUrl: 'static/images/eric-tran-headshot.jpg',
-      title: 'Eric Tran',
-      text: `
-      I'm a front end web developer at Kinaxis.
-      I enjoy building web applications with a focus on intuitive user experiences.
-      `,
-      links: [ {
-        text: 'Twitter',
-        url: 'https://twitter.com/EricTran5791'
-      }, {
-        text: 'GitHub',
-        url: 'https://github.com/EricTran5791'
-      }, {
-        text: 'LinkedIn',
-        url: 'https://www.linkedin.com/in/erictran5791'
-      }],
-      email: 'me [at] erictran.ca'
-    };
-  }
-};
+@Component({
+  components: { ButtonLink }
+})
+export default class HeroSection extends Vue {
+  imageUrl = 'static/images/eric-tran-headshot.jpg';
+  title = 'Eric Tran';
+  text = `
+    I'm a front end web developer at Kinaxis.
+    I enjoy building web applications with a focus on intuitive user experiences.
+    `;
+  links: Link[] = [{
+    text: 'Twitter',
+    url: 'https://twitter.com/EricTran5791'
+  }, {
+    text: 'GitHub',
+    url: 'https://github.com/EricTran5791'
+  }, {
+    text: 'LinkedIn',
+    url: 'https://www.linkedin.com/in/erictran5791'
+  }];
+  email = 'me [at] erictran.ca';
+}
 </script>
 
 <style lang="scss" scoped>

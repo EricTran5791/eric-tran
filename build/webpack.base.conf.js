@@ -34,6 +34,15 @@ module.exports = {
         options: vueLoaderConfig
       },
       {
+        enforce: 'pre',
+        test: /\.ts$/,
+        loader: 'tslint-loader',
+        exclude: /(node_modules)/,
+        options: {
+            configFile: 'tslint.json'
+        }
+      },
+      {
         test: /\.ts$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
