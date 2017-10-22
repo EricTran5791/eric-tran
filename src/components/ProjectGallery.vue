@@ -3,6 +3,14 @@
     <project-picker v-bind:items="projects"/>
     <div class="project-gallery__project">
       <div class="project-gallery__project-name">{{ selectedProject.name }}</div>
+      <div class="project-gallery__project-tag-container">
+        <div
+          class="project-gallery__project-tag"
+          v-for="tag in selectedProject.tags"
+          :key="tag">
+          {{ tag }}
+        </div>
+      </div>
       <div class="project-gallery__project-desc">{{ selectedProject.description }}</div>
       <img class="project-gallery__project-img" v-bind:src="selectedProject.imageUrl"/>
       <button-link
@@ -59,6 +67,20 @@ export default class ProjectGallery extends Vue {
     @include font-header(false);
     text-align: center;
     margin-bottom: $margin;
+  }
+
+  &__project-tag-container {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: $margin;
+  }
+
+  &__project-tag {
+    color: $colorWhite;
+    background-color: $colorPrimary;
+    border-radius: 24px;
+    padding: $margin/2 $margin;
+    margin: $margin/2;
   }
 
   &__project-desc {

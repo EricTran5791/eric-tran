@@ -8,4 +8,12 @@ export type Project = {
     url: string;
     description: string;
     imageUrl: string;
+    tags: ProjectTags[];
 };
+
+export const enum ProjectTags {
+    Android = 'Android',
+    Vue = 'Vue',
+    WordPress = 'WordPress',
+    WooCommerce = 'WooCommerce'
+}
