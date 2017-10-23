@@ -2,21 +2,30 @@
   <div class="project-gallery">
     <project-picker v-bind:items="projects"/>
     <div class="project-gallery__project">
-      <div class="project-gallery__project-name">{{ selectedProject.name }}</div>
-      <div class="project-gallery__project-tag-container">
-        <div
-          class="project-gallery__project-tag"
-          v-for="tag in selectedProject.tags"
-          :key="tag">
-          {{ tag }}
+
+      <div class="project-gallery__project-pane">
+        <div class="project-gallery__project-name">{{ selectedProject.name }}</div>
+        <div class="project-gallery__project-tag-container">
+          <div
+            class="project-gallery__project-tag"
+            v-for="tag in selectedProject.tags"
+            :key="tag">
+            {{ tag }}
+          </div>
         </div>
+        <div class="project-gallery__project-desc">{{ selectedProject.description }}</div>
+        <button-link
+          v-bind:link="selectedProjectLink"
+          iconClass="open_in_new"/>
       </div>
-      <div class="project-gallery__project-desc">{{ selectedProject.description }}</div>
-      <img class="project-gallery__project-img" v-bind:src="selectedProject.imageUrl"/>
-      <button-link
-        class="project-gallery__project-link"
-        v-bind:link="selectedProjectLink"
-        iconClass="open_in_new"/>
+
+      <div class="project-gallery__project-pane project-gallery__project-pane--right">
+        <img
+          class="project-gallery__project-img"
+          v-bind:src="selectedProject.imageUrl"
+          v-bind:class="[transitionClass]"/>
+      </div>
+      
     </div>
   </div>
 </template>
@@ -24,22 +33,28 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { mapState } from 'vuex';
+import { Watch } from 'vue-property-decorator';
+import { mapState, mapGetters } from 'vuex';
 import ProjectPicker from './ProjectPicker.vue';
 import ButtonLink from './ButtonLink.vue';
-import { Link, Project } from '../types';
+import { Link, Project, TransitionClasses } from '../types';
 
 @Component({
   components: { ProjectPicker, ButtonLink },
-  computed: mapState(['projects', 'selectedProject'])
+  computed: {
+    ...mapState(['projects']),
+    ...mapGetters(['selectedProject', 'selectedProjectIndex']),
+  }
 })
 export default class ProjectGallery extends Vue {
   selectedProject: Project;
   projects: Project[];
+  transitionClass: TransitionClasses = TransitionClasses.SlideIn;
 
   created() {
     this.$store.commit('selectProject', {
-      project: this.projects[0]
+      project: this.projects[0],
+      index: 0
     });
   }
 
@@ -49,6 +64,14 @@ export default class ProjectGallery extends Vue {
       url: this.selectedProject.url
     };
   }
+
+  @Watch('selectedProjectIndex')
+  setTransitionClass() {
+    this.transitionClass = TransitionClasses.None;
+    setTimeout(() => {
+      this.transitionClass = TransitionClasses.SlideIn;
+    });
+  }
 }
 </script>
 
@@ -57,10 +80,27 @@ export default class ProjectGallery extends Vue {
   margin: $margin*2 0;
 
   &__project {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: $margin;
+    justify-items: center;
+    margin-top: $marginSection/2;
+
+    @media (max-width: $mediaPhone) {
+      grid-template-columns: 1fr;
+      grid-gap: $margin*2;
+    }
+  }
+
+  &__project-pane {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: $marginSection/2;
+    flex-wrap: wrap;
+
+    &--right {
+      justify-content: center;
+    }
   }
 
   &__project-name {
@@ -72,29 +112,47 @@ export default class ProjectGallery extends Vue {
   &__project-tag-container {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: $margin;
+    margin-bottom: $margin*2;
+
+    @media (max-width: $mediaPhone) {
+        margin-bottom: $margin;
+    }
   }
 
   &__project-tag {
     color: $colorWhite;
-    background-color: $colorPrimary;
+    background-color: $colorSecondary;
     border-radius: 24px;
     padding: $margin/2 $margin;
     margin: $margin/2;
   }
 
   &__project-desc {
-    width: $mediaPhone;
-    max-width: 100%;
-    margin-bottom: $margin;
+    max-width: 600px;
+    margin-bottom: $margin*2;
+
+    @media (max-width: $mediaPhone) {
+        margin-bottom: $margin;
+    }
   }
 
   &__project-img {
     background-size: cover;
-    height: 100%;
-    width: 600px;
-    max-width: 100%;
-    margin-bottom: $margin*2;
+    height: auto;
+    width: 100%;
+
+    &.slide-in {
+      animation: slide-in 0.4s ease;
+    }
+
+    @keyframes slide-in {
+      0% {
+        transform: translateX(6%);
+      }
+      100% {
+        transform: translateX(0);
+      }
+    }
   }
 }
 </style>

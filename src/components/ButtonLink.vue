@@ -44,7 +44,7 @@ export default class ButtonLink extends Vue {
 .button-link {
   background-color: $colorPrimary;
   color: $colorWhite;
-  display: flex;
+  display: inline-flex;
   text-decoration: none;
   padding: $margin/2 $margin;
   margin: $margin/2;

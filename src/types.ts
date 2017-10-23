@@ -17,3 +17,8 @@ export const enum ProjectTags {
     WordPress = 'WordPress',
     WooCommerce = 'WooCommerce'
 }
+
+export const enum TransitionClasses {
+    None = '',
+    SlideIn = 'slide-in'
+}

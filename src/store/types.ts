@@ -3,7 +3,12 @@ import { Link, Project, ProjectTags } from '../types';
 export type State = {
     socialLinks: Link[],
     projects: Project[],
-    selectedProject: Project | undefined;
+    selectedProject: SelectedProject | undefined;
+};
+
+export type SelectedProject = {
+    project: Project;
+    index: number;
 };
 
 export const initialState: State = {

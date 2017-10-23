@@ -4,10 +4,10 @@
       <div
         class="project-picker__item"
         v-bind:class="{ 'project-picker__item--selected': selectedProject.name === item.name }"
+        v-bind:style="{ backgroundImage: `url(${item.imageUrl})` }"
         v-for="(item, index) in items"
-        v-on:click="selectProject(item)"
+        v-on:click="selectProject(item, index)"
         :key="item.name">
-        {{ item.name }}
       </div>
     </div>
   </div>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Component from 'vue-class-component';
-import { mapState } from 'vuex';
+import { mapGetters } from 'vuex';
 import { Project } from '../types';
 
 @Component({
@@ -26,14 +26,15 @@ import { Project } from '../types';
       required: true
     }
   },
-  computed: mapState(['selectedProject'])
+  computed: mapGetters(['selectedProject']),
 })
 export default class ProjectPicker extends Vue {
   items: Project[];
 
-  selectProject(project: Project) {
+  selectProject(project: Project, index: number) {
     this.$store.commit('selectProject', {
-      project
+      project,
+      index
     });
   }
 }
@@ -45,28 +46,46 @@ export default class ProjectPicker extends Vue {
   justify-content: center;
 
   &__item-container {
-    display: flex;
-    box-shadow: $boxShadowButton;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: $margin;
+
+    @media (max-width: $mediaPhone) {
+        grid-template-columns: 1fr 1fr;
+    }
   }
 
   &__item {
     cursor: pointer;
-    user-select: none;
+    position: relative;
     display: flex;
-    background-color: $colorSecondary;
+    align-items: center;
     color: $colorWhite;
-    padding: $margin/2 $margin;
-    transition: background-color 0.33s ease;
-
-    &:hover {
-      background-color: lighten($colorSecondary, 3);
-    }
+    background-color: $colorSecondary;
+    background-size: cover;
+    background-position: center center;
+    height: 130px;
+    width: 130px;
 
     &--selected {
-      background-color: $colorPrimary;
+      &:before {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        height: 4px;
+        width: 100%;
+        background-color: $colorPrimary;
+        animation: expand-out 0.4s ease;
+      }
 
-      &:hover {
-        background-color: lighten($colorPrimary, 3);
+      @keyframes expand-out {
+        0% {
+          transform: scaleX(0);
+        }
+        100% {
+          transform: scaleX(1);
+        }
       }
     }
   }
