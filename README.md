@@ -1,6 +1,6 @@
 # eric-tran
 
-> My personal website.
+My personal website. https://www.erictran.ca
 
 ## Build Setup
 
