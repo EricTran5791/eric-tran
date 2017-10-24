@@ -3,7 +3,9 @@
     <project-picker v-bind:items="projects"/>
     <div class="project-gallery__project">
 
-      <div class="project-gallery__project-pane">
+      <div
+        class="project-gallery__project-pane"
+        ref="projectPaneFirst">
         <div class="project-gallery__project-name">{{ selectedProject.name }}</div>
         <div class="project-gallery__project-tag-container">
           <div
@@ -19,7 +21,7 @@
           iconClass="open_in_new"/>
       </div>
 
-      <div class="project-gallery__project-pane project-gallery__project-pane--right">
+      <div class="project-gallery__project-pane project-gallery__project-pane--second">
         <img
           class="project-gallery__project-img"
           v-bind:src="selectedProject.imageUrl"
@@ -50,12 +52,27 @@ export default class ProjectGallery extends Vue {
   selectedProject: Project;
   projects: Project[];
   transitionClass: TransitionClasses = TransitionClasses.SlideIn;
+  unsubscribe: () => void;
 
   created() {
     this.$store.commit('selectProject', {
       project: this.projects[0],
       index: 0
     });
+  }
+
+  mounted() {
+    this.unsubscribe = this.$store.subscribe(mutation => {
+      // Scroll to the project pane after selecting a project on phone resolutions
+      if (mutation.type === 'selectProject' && window.innerWidth <= 767) {
+        const projectPane = this.$refs.projectPaneFirst as Element;
+        projectPane.scrollIntoView({ behavior: "smooth", block: "start" }); // TODO: Use polyfill for scrollIntoView
+      }
+    });
+  }
+
+  destroyed() {
+    this.unsubscribe();
   }
 
   get selectedProjectLink(): Link {
@@ -98,7 +115,7 @@ export default class ProjectGallery extends Vue {
     align-items: center;
     flex-wrap: wrap;
 
-    &--right {
+    &--second {
       justify-content: center;
     }
   }
