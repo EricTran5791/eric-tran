@@ -1,5 +1,7 @@
 <template>
-  <div class="section-header">
+  <div
+    class="section-header"
+    v-bind:class="{'section-header--light': lightText }">
     {{ text }}
   </div>
 </template>
@@ -12,6 +14,10 @@ export default {
       type: String,
       required: true,
       validator: value => !!value
+    },
+    lightText: {
+      type: Boolean,
+      required: false
     }
   }
 };
@@ -22,5 +28,9 @@ export default {
   @include font-header;
   color: $colorBlack;
   text-align: center;
+
+  &--light {
+    color: $colorWhite;
+  }
 }
 </style>
