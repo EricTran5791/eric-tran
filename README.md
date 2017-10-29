@@ -1,6 +1,16 @@
 # eric-tran
 
-My personal website. https://www.erictran.ca
+My personal website - https://www.erictran.ca
+
+## Environment Variable Setup
+My site uses the GitHub GraphQL API to fetch data, therefore a GitHub access token is required. You will need to create `config.js` in the `config` directory. The contents of the file should be as follows:
+
+``` javascript
+module.exports = {
+    GITHUB_TOKEN: '<put-your-access-token-here>'
+}
+
+```
 
 ## Build Setup
 

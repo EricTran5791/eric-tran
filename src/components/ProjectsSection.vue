@@ -18,7 +18,6 @@ export default {
 <style lang="scss" scoped>
 .projects-section {
   background-color: $colorWhite;
-  min-height: 80vh;
   padding: $marginSection $margin*2;
 
   @media (max-width: $mediaPhone) {

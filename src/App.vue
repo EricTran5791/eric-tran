@@ -2,16 +2,18 @@
   <div id="app">
     <hero-section/>
     <projects-section/>
+    <open-source-section/>
   </div>
 </template>
 
 <script>
 import HeroSection from './components/HeroSection';
 import ProjectsSection from './components/ProjectsSection';
+import OpenSourceSection from './components/OpenSourceSection';
 
 export default {
   name: 'app',
-  components: { HeroSection, ProjectsSection }
+  components: { HeroSection, ProjectsSection, OpenSourceSection }
 };
 </script>
 

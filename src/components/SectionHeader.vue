@@ -6,9 +6,11 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'SectionHeader',
+<script lang="ts">
+import Vue from 'vue';
+import Component from 'vue-class-component';
+
+@Component({
   props: {
     text: {
       type: String,
@@ -20,7 +22,8 @@ export default {
       required: false
     }
   }
-};
+})
+export default class SectionHeader extends Vue { };
 </script>
 
 <style lang="scss" scoped>
