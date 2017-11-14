@@ -8,22 +8,20 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 
-@Component({
-  props: {
+export default Vue.extend({
+    props: {
     text: {
       type: String,
       required: true,
-      validator: value => !!value
+      validator: (value: string) => !!value
     },
     lightText: {
       type: Boolean,
       required: false
     }
   }
-})
-export default class SectionHeader extends Vue { };
+});
 </script>
 
 <style lang="scss" scoped>

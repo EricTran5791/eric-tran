@@ -27,25 +27,32 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
+import Vue, { ComponentOptions } from 'vue';
 import SectionHeader from './SectionHeader.vue';
 import ButtonLink from './ButtonLink.vue';
-import { envGitHubToken } from './mixins/env-github-token';
 import { ApolloClient, HttpLink } from 'apollo-client-preset';
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import queryRepositories from '../queries/repositories.graphql';
 
-@Component({
-  components: { SectionHeader, ButtonLink },
-  mixins: [envGitHubToken]
-})
-export default class OpenSourceSection extends Vue {
+class OpenSourceSection extends Vue {
   envGitHubToken: string;
-  description: string = "Here are the latest repositories that I have contributed to.";
+  description: string;
   repositories: any[] = [];
+}
+declare const process: any;
 
-  created() {
+export default {
+  components: { SectionHeader, ButtonLink },
+  data() {
+    return {
+      envGitHubToken: '',
+      description: 'Here are the latest repositories that I have contributed to.',
+      repositories: []
+    }
+  },
+  created(this: OpenSourceSection) {
+    this.envGitHubToken = process.env.GITHUB_TOKEN;
+
     const client = new ApolloClient({
         link: new HttpLink({
             uri: `https://api.github.com/graphql`,
@@ -63,7 +70,7 @@ export default class OpenSourceSection extends Vue {
       });
 
   }
-}
+} as ComponentOptions<OpenSourceSection>;
 </script>
 
 <style lang="scss">

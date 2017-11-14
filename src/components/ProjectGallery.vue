@@ -33,35 +33,33 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import Component from 'vue-class-component';
-import { Watch } from 'vue-property-decorator';
+import Vue, { ComponentOptions } from 'vue';
 import { mapState, mapGetters } from 'vuex';
 import ProjectPicker from './ProjectPicker.vue';
 import ButtonLink from './ButtonLink.vue';
 import { Link, Project, TransitionClasses } from '../types';
 
-@Component({
-  components: { ProjectPicker, ButtonLink },
-  computed: {
-    ...mapState(['projects']),
-    ...mapGetters(['selectedProject', 'selectedProjectIndex']),
-  }
-})
-export default class ProjectGallery extends Vue {
+class ProjectGallery extends Vue {
   selectedProject: Project;
   projects: Project[];
   transitionClass: TransitionClasses = TransitionClasses.SlideIn;
   unsubscribe: () => void;
+}
 
-  created() {
+export default {
+  components: { ProjectPicker, ButtonLink },
+  data() {
+    return {
+      transitionClass: ''
+    }
+  },
+  created(this: ProjectGallery) {
     this.$store.commit('selectProject', {
       project: this.projects[0],
       index: 0
     });
-  }
-
-  mounted() {
+  },
+  mounted(this: ProjectGallery) {
     this.unsubscribe = this.$store.subscribe(mutation => {
       // Scroll to the project pane after selecting a project on phone resolutions
       if (mutation.type === 'selectProject' && window.innerWidth <= 767) {
@@ -69,27 +67,29 @@ export default class ProjectGallery extends Vue {
         projectPane.scrollIntoView({ behavior: "smooth", block: "start" }); // TODO: Use polyfill for scrollIntoView
       }
     });
-  }
-
-  destroyed() {
+  },
+  destroyed(this: ProjectGallery) {
     this.unsubscribe();
+  },
+  computed: {
+    ...mapState(['projects']),
+    ...mapGetters(['selectedProject', 'selectedProjectIndex']),
+    selectedProjectLink(this: ProjectGallery): Link {
+      return {
+        text: 'Link',
+        url: this.selectedProject.url
+      };
+    }
+  },
+  watch: {
+      selectedProjectIndex(this: ProjectGallery) {
+      this.transitionClass = TransitionClasses.None;
+      setTimeout(() => {
+        this.transitionClass = TransitionClasses.SlideIn;
+      });
+    }
   }
-
-  get selectedProjectLink(): Link {
-    return {
-      text: 'Link',
-      url: this.selectedProject.url
-    };
-  }
-
-  @Watch('selectedProjectIndex')
-  setTransitionClass() {
-    this.transitionClass = TransitionClasses.None;
-    setTimeout(() => {
-      this.transitionClass = TransitionClasses.SlideIn;
-    });
-  }
-}
+} as ComponentOptions<ProjectGallery>;
 </script>
 
 <style lang="scss" scoped>

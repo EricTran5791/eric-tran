@@ -15,11 +15,10 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 import { mapGetters } from 'vuex';
 import { Project } from '../types';
 
-@Component({
+export default Vue.extend({
   props: {
     items: {
       type: Array,
@@ -27,17 +26,15 @@ import { Project } from '../types';
     }
   },
   computed: mapGetters(['selectedProject']),
-})
-export default class ProjectPicker extends Vue {
-  items: Project[];
-
-  selectProject(project: Project, index: number) {
-    this.$store.commit('selectProject', {
-      project,
-      index
-    });
+  methods: {
+    selectProject(project: Project, index: number) {
+      this.$store.commit('selectProject', {
+        project,
+        index
+      });
+    }
   }
-}
+});
 </script>
 
 <style lang="scss" scoped>

@@ -21,25 +21,24 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 import ButtonLink from './ButtonLink.vue';
 import { mapState } from 'vuex';
-import { Link } from '../types';
 
-@Component({
+export default Vue.extend({
   components: { ButtonLink },
-  computed: mapState(['socialLinks'])
-})
-export default class HeroSection extends Vue {
-  imageUrl = 'static/images/eric-tran-headshot.jpg';
-  title = 'Eric Tran';
-  text = `
-    I'm a front end web developer at Kinaxis.
-    I enjoy building web applications with a focus on intuitive user experiences.
-    `;
-  socialLinks: Link[];
-  email = 'me [at] erictran.ca';
-}
+  data() {
+    return {
+      imageUrl: 'static/images/eric-tran-headshot.jpg',
+      title: 'Eric Tran',
+      text: `
+        I'm a front end web developer at Kinaxis.
+        I enjoy building web applications with a focus on intuitive user experiences.
+        `,
+      email: 'me [at] erictran.ca'
+    }
+  },
+  computed: mapState(['socialLinks'])  
+});
 </script>
 
 <style lang="scss" scoped>

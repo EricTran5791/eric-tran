@@ -13,10 +13,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Component from 'vue-class-component';
 import { Link } from '../types';
 
-@Component({
+export default Vue.extend({
   props: {
     link: {
       type: Object,
@@ -32,12 +31,7 @@ import { Link } from '../types';
       required: false
     }
   }
-})
-export default class ButtonLink extends Vue {
-  link: Link;
-  buttonClass: string;
-  iconClass: string;
-}
+});
 </script>
 
 <style lang="scss" scoped>
