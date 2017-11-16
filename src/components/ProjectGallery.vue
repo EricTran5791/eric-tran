@@ -18,6 +18,7 @@
         <div class="project-gallery__project-desc">{{ selectedProject.description }}</div>
         <button-link
           v-bind:link="selectedProjectLink"
+          buttonClass="black"
           iconClass="open_in_new"/>
       </div>
 
@@ -138,7 +139,7 @@ export default {
 
   &__project-tag {
     color: $colorWhite;
-    background-color: $colorSecondary;
+    background-color: $colorPrimary;
     border-radius: 24px;
     padding: $margin/2 $margin;
     margin: $margin/2;

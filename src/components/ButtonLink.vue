@@ -1,7 +1,10 @@
 <template>
   <a
     class="button-link"
-    v-bind:class="{'button-link--secondary': buttonClass === 'secondary'}"
+    v-bind:class="{
+      'button-link--secondary': buttonClass === 'secondary',
+      'button-link--black': buttonClass === 'black'
+      }"
     v-bind:href="link.url"
     target="_blank"
     rel="noopener noreferrer"
@@ -54,9 +57,15 @@ export default Vue.extend({
 
   &--secondary {
     background-color: $colorSecondary;
-
     &:hover {
       background-color: lighten($colorSecondary, 3);
+    }
+  }
+
+  &--black {
+    background-color: $colorBlack;
+    &:hover {
+      background-color: lighten($colorBlack, 3);
     }
   }
 

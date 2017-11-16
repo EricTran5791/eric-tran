@@ -3,23 +3,22 @@
     <section-header
         text="Open Source Contributions"
         v-bind:light-text="true"/>
-
-    <div class="open-source-section__desc">{{description}}</div>
-
+    <div class="open-source-section__desc">{{ description }}</div>
     <div class="repository-container">
       <div
         class="repository"
         v-for="(item, index) in repositories"
         :key="index">
-        <div class="repository__name">
-          {{item.node.name}}
-        </div>
+        <a
+          class="repository__name"
+          v-bind:href="item.node.url"
+          target="_blank"
+          rel="noopener noreferrer">
+          {{ item.node.name }}
+        </a>
         <div class="repository__desc">
-          {{item.node.description}}
+          {{ item.node.description }}
         </div>
-        <button-link
-          v-bind:link="{text: 'Link', url: item.node.url}"
-          iconClass="open_in_new"/>
       </div>
     </div>
 
@@ -29,7 +28,6 @@
 <script lang="ts">
 import Vue, { ComponentOptions } from 'vue';
 import SectionHeader from './SectionHeader.vue';
-import ButtonLink from './ButtonLink.vue';
 import { ApolloClient, HttpLink } from 'apollo-client-preset';
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import queryRepositories from '../queries/repositories.graphql';
@@ -42,11 +40,11 @@ class OpenSourceSection extends Vue {
 declare const process: any;
 
 export default {
-  components: { SectionHeader, ButtonLink },
+  components: { SectionHeader },
   data() {
     return {
       envGitHubToken: '',
-      description: 'Here are the latest repositories that I have contributed to.',
+      description: 'Here are some of my latest GitHub contributions.',
       repositories: []
     }
   },
@@ -76,38 +74,48 @@ export default {
 <style lang="scss">
 .open-source-section {
   background-color: $colorBlack;
-  color: $colorWhite;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: $marginSection $margin*2;
+  padding: $marginSection;
 
   @media (max-width: $mediaPhone) {
     padding: $marginSection/2 $margin;
   }
 
   &__desc {
+    color: $colorWhite;
     margin-top: $margin*2;
   }
 }
 
 .repository-container {
   display: grid;
-  grid-template-columns: 1fr;
-  grid-gap: $margin*2;
-  margin-top: $margin*2;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: $margin*4;
+  margin-top: $margin*4;
+
+  @media (max-width: $mediaPhone) {
+    grid-template-columns: 1fr;
+  }
 }
 
 .repository {
+  @include card($colorWhite);
   display: flex;
   flex-direction: column;
   align-items: center;
 
   &__name {
+    color: $colorBlack;
     @include font-header(false);
+    text-align: center;
+    text-decoration: none;
+    margin-bottom: $margin;
   }
 
   &__desc {
+    color: $colorBlack;
     text-align: center;
   }
 }

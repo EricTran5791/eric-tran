@@ -8,7 +8,7 @@
         <button-link
           v-for="link in socialLinks"
           v-bind:link="link"
-          buttonClass="secondary"
+          buttonClass="black"
           :key="link.text"/>
       </div>
       <div class="hero__email">
@@ -49,14 +49,14 @@ export default Vue.extend({
   align-items: center;
   min-height: 75vh;
   background-color: $colorWhite;
-  background: linear-gradient($colorWhite, darken($colorWhite, 10));
+  background: linear-gradient($colorPrimary, darken($colorPrimary, 10));
 
   @media (max-width: $mediaPhone) {
     justify-content: flex-start;
   }
 
   &__card {
-    @include card($colorPrimary);
+    @include card($colorWhite);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -76,13 +76,13 @@ export default Vue.extend({
   }
 
   &__title {
-    color: $colorWhite;
+    color: $colorBlack;
     @include font-header;
     text-align: center;
   }
 
   &__text {
-    color: $colorWhite;
+    color: $colorBlack;
     @include font-body;
     text-align: center;
     margin-bottom: $margin;
@@ -97,7 +97,7 @@ export default Vue.extend({
 
   &__email {
     display: inline-flex;
-    color: $colorWhite;
+    color: $colorBlack;
     @include font-body;
 
     i {
