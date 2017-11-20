@@ -1,6 +1,6 @@
 {
   user(login: "EricTran5791") {
-    contributedRepositories(last: 6) {
+    contributedRepositories(last: 5) {
       edges {
         node {
           id

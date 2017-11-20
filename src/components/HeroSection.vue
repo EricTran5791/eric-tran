@@ -61,7 +61,7 @@ export default Vue.extend({
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 660px;
+    width: 772px;
     box-sizing: border-box;
     max-width: 100%;
   }
@@ -97,6 +97,7 @@ export default Vue.extend({
 
   &__email {
     display: inline-flex;
+    align-items: center;
     color: $colorBlack;
     @include font-body;
 

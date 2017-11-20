@@ -37,13 +37,13 @@ $boxShadowCard: 0 5px 5px -3px rgba(0, 0, 0, 0.2), 0 8px 10px 1px rgba(0, 0, 0, 
   font-family: 'Fira Sans', Helvetica, Arial, sans-serif;
   font-weight: 400;
   font-size: 18px;
-  line-height: 24px;
+  line-height: 28px;
 }
 
 @mixin card($color) {
   background-color: $color;
   background: radial-gradient($color, darken($color, 15));
-  border-radius: 6px;
+  border-radius: 8px;
   padding: $margin * 2;
   box-shadow: $boxShadowCard;
 }

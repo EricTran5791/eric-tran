@@ -74,6 +74,7 @@ export default {
 <style lang="scss">
 .open-source-section {
   background-color: $colorBlack;
+  background: linear-gradient($colorBlack, darken($colorBlack, 10));
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -85,19 +86,13 @@ export default {
 
   &__desc {
     color: $colorWhite;
-    margin-top: $margin*2;
+    margin: $margin*2 0;
   }
 }
 
 .repository-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: $margin*4;
-  margin-top: $margin*4;
-
-  @media (max-width: $mediaPhone) {
-    grid-template-columns: 1fr;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .repository {
@@ -105,18 +100,21 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: $margin*2 0;
+  text-align: center;
+
+  @media (max-width: $mediaPhone) {
+    margin: $margin 0;
+  }
 
   &__name {
     color: $colorBlack;
     @include font-header(false);
-    text-align: center;
     text-decoration: none;
-    margin-bottom: $margin;
   }
 
   &__desc {
     color: $colorBlack;
-    text-align: center;
   }
 }
 </style>
