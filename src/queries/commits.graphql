@@ -1,0 +1,21 @@
+query{
+  viewer{
+    repositoriesContributedTo(last: 3, includeUserRepositories: true, contributionTypes: COMMIT){
+      nodes{
+        name
+        ref(qualifiedName:"master") {
+          target {
+            ... on Commit {
+              history(first: 1, author: {id: "MDQ6VXNlcjYyNzQ3MTc="}) {
+                nodes {
+                  committedDate
+                  commitUrl
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

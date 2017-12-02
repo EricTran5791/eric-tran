@@ -1,0 +1,13 @@
+query{
+  viewer{
+    issues (last: 3) {
+      nodes{
+        repository {
+          name
+        }
+        updatedAt
+        url
+      }
+    }
+  }
+}

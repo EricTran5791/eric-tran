@@ -1,9 +1,10 @@
-import { Link, Project, ProjectTags } from '../types';
+import { Link, Project, ProjectTags, OpenSourceContribution } from '../types';
 
 export type State = {
     socialLinks: Link[],
     projects: Project[],
     selectedProject: SelectedProject | undefined;
+    openSourceContributions: OpenSourceContribution[];
 };
 
 export type SelectedProject = {
@@ -49,5 +50,6 @@ export const initialState: State = {
         imageUrl: '/static/images/project-lwc.png',
         tags: [ProjectTags.Android]
     }],
-    selectedProject: undefined
+    selectedProject: undefined,
+    openSourceContributions: []
 };

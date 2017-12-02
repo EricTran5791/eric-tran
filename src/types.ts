@@ -22,3 +22,15 @@ export const enum TransitionClasses {
     None = '',
     SlideIn = 'slide-in'
 }
+
+export const enum OpenSourceContributionType {
+    Commit = 'Commit',
+    Issue = 'Issue Report'
+}
+
+export type OpenSourceContribution = {
+    repositoryName: string;
+    type: OpenSourceContributionType;
+    date: string;
+    url: string;
+};
