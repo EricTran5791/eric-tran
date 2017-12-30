@@ -53,6 +53,7 @@ export default Vue.extend({
 
   @media (max-width: $mediaPhone) {
     justify-content: flex-start;
+    min-height: 0;
   }
 
   &__card {
@@ -64,6 +65,10 @@ export default Vue.extend({
     width: 772px;
     box-sizing: border-box;
     max-width: 100%;
+
+    @media (max-width: $mediaPhone) {
+      border-radius: 0;
+    }
   }
 
   &__img {
