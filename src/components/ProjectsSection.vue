@@ -20,6 +20,10 @@ export default {
   background-color: $colorWhite;
   padding: $marginSection $margin*2;
 
+  @media (max-width: $mediaDesktop) {
+    padding: $marginSection*1.5 $margin*2;
+  }
+
   @media (max-width: $mediaPhone) {
     padding: $marginSection/2 $margin;
   }

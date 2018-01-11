@@ -45,15 +45,17 @@ export default Vue.extend({
 .hero {
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 75vh;
   background-color: $colorWhite;
   background: linear-gradient($colorPrimary, darken($colorPrimary, 10));
+  padding: $marginSection 0;
+
+  @media (max-width: $mediaDesktop) {
+    padding: $marginSection*1.5 0;
+  }
 
   @media (max-width: $mediaPhone) {
-    justify-content: flex-start;
-    min-height: 0;
+    padding: 0;
   }
 
   &__card {
@@ -68,6 +70,8 @@ export default Vue.extend({
 
     @media (max-width: $mediaPhone) {
       border-radius: 0;
+      background: none;
+      box-shadow: none;
     }
   }
 
@@ -84,6 +88,9 @@ export default Vue.extend({
     color: $colorBlack;
     @include font-header;
     text-align: center;
+    @media (max-width: $mediaPhone) {
+      color: $colorWhite;
+    }
   }
 
   &__text {
@@ -91,6 +98,9 @@ export default Vue.extend({
     @include font-body;
     text-align: center;
     margin-bottom: $margin;
+    @media (max-width: $mediaPhone) {
+      color: $colorWhite;
+    }
   }
 
   &__button-container {
@@ -105,6 +115,10 @@ export default Vue.extend({
     align-items: center;
     color: $colorBlack;
     @include font-body;
+
+    @media (max-width: $mediaPhone) {
+      color: $colorWhite;
+    }
 
     i {
       margin-right: $margin/2;

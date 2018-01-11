@@ -129,7 +129,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: $marginSection;
+  padding: $marginSection 0;
+
+  @media (min-width: $mediaDesktop) {
+    padding: $marginSection*1.5 0;
+  }
 
   @media (max-width: $mediaPhone) {
     padding: $marginSection/2 $margin;
