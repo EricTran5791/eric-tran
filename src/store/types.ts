@@ -49,6 +49,14 @@ export const initialState: State = {
             Overall, it was a great learning experience and I still use the app every now and then.`,
         imageUrl: '/static/images/project-lwc.png',
         tags: [ProjectTags.Android]
+    }, {
+        name: 'Personal Website',
+        url: 'https://github.com/EricTran5791/eric-tran',
+        description:
+            `My personal website built using Vue.
+            My website also leverages Vuex, CSS Grid, and the GitHub GraphQL API.`,
+        imageUrl: '/static/images/project-et.png',
+        tags: [ProjectTags.Vue]
     }],
     selectedProject: undefined,
     openSourceContributions: []
