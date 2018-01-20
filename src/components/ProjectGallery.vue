@@ -84,7 +84,7 @@ export default {
   watch: {
       selectedProjectIndex(this: ProjectGallery) {
       this.transitionClass = TransitionClasses.None;
-      setTimeout(() => {
+      window.requestAnimationFrame(() => {
         this.transitionClass = TransitionClasses.SlideIn;
       });
     }
