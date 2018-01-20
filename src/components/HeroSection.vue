@@ -49,6 +49,7 @@ export default Vue.extend({
   background-color: $colorWhite;
   background: linear-gradient($colorPrimary, darken($colorPrimary, 10));
   padding: $marginSection 0;
+  overflow: hidden;
 
   @media (max-width: $mediaDesktop) {
     padding: $marginSection*1.5 0;
@@ -67,11 +68,21 @@ export default Vue.extend({
     width: 772px;
     box-sizing: border-box;
     max-width: 100%;
+    animation: slide-up $speedSlow;
 
     @media (max-width: $mediaPhone) {
       border-radius: 0;
       background: none;
       box-shadow: none;
+    }
+
+    @keyframes slide-up {
+      0% {
+        transform: translateY(50%);
+      }
+      100% {
+        transform: translateY(0);
+      }
     }
   }
 

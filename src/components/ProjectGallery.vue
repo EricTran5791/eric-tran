@@ -94,9 +94,6 @@ export default {
 
 <style lang="scss" scoped>
 .project-gallery {
-  $speedNormal: 0.5s ease;
-  $speedSlow: 0.8s ease;
-
   margin: $margin*2 0;
 
   &__project {
