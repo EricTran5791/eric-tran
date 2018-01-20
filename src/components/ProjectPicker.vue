@@ -44,11 +44,11 @@ export default Vue.extend({
 
   &__item-container {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: $margin;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: $margin*2;
 
     @media (max-width: $mediaPhone) {
-        grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
     }
   }
 
@@ -61,14 +61,29 @@ export default Vue.extend({
     background-color: $colorSecondary;
     background-size: cover;
     background-position: center center;
-    height: 130px;
+    height: 100px;
     width: 130px;
+    border-radius: 4px;
+    box-shadow: $boxShadowCard;
+    transition: transform 0.15s ease;
+
+    @media (max-width: $mediaPhone) {
+      height: 90px;
+      width: 130px;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      &:active {
+        transform: translateY(1px);
+      }
+    }
 
     &--selected {
       &:before {
         content: '';
         position: absolute;
-        bottom: -8px;
+        bottom: -16px;
         left: 0;
         height: 4px;
         width: 100%;

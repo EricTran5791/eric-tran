@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { State, initialState, SelectedProject } from './types';
-import { OpenSourceContribution } from '../types';
+import { OpenSourceContribution, Link } from '../types';
 
 Vue.use(Vuex);
 
@@ -13,6 +13,13 @@ export const store = new Vuex.Store<State>({
       },
       selectedProjectIndex: (state: State) => {
         return state.selectedProject ? state.selectedProject.index : 0;
+      },
+      selectedProjectLink: (state: State): Link => {
+        const project = state.selectedProject ? state.selectedProject.project : undefined;
+        return {
+          text: project && project.url.search('github.com') > -1 ? 'GitHub Source' : 'Link',
+          url: project && project.url || ''
+        };
       },
       openSourceContributions: (state: State) => {
         return state.openSourceContributions

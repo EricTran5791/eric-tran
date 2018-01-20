@@ -53,6 +53,9 @@ export default Vue.extend({
     background-color: lighten($colorPrimary, 3);
     transform: translateY(-2px);
     box-shadow: $boxShadowCard;
+    &:active {
+      transform: translateY(1px);
+    }
   }
 
   &--secondary {
