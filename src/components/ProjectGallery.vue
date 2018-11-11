@@ -32,8 +32,17 @@
       <div class="project-gallery__project-pane project-gallery__project-pane--second">
         <img
           class="project-gallery__project-img"
-          v-bind:src="selectedProject.imageUrl"
-          v-bind:class="[transitionClass]"/>
+          v-bind:class="[{ 'project-gallery__project-img--multi-image': selectedProject.images.length > 1 }, transitionClass]"
+          v-bind:src="selectedProject.images[selectedProjectCurrentImageIndex]"
+          v-on:click="cycleProjectGalleryImage()"/>
+          <div class="project-gallery__project-img-dot-container" v-if="selectedProject.images.length > 1">
+            <div
+              v-for="(image, index) in selectedProject.images"
+              :key="image"
+              class="project-gallery__project-img-dot"
+              v-bind:class="{ 'project-gallery__project-img-dot--selected': selectedProjectCurrentImageIndex === index }"
+              v-on:click="setCurrentGalleryImage(index)"></div>
+          </div>
       </div>
       
     </div>
@@ -61,12 +70,6 @@ export default {
       transitionClass: '',
     };
   },
-  created(this: ProjectGallery) {
-    this.$store.commit('selectProject', {
-      project: this.projects[0],
-      index: 0,
-    });
-  },
   mounted(this: ProjectGallery) {
     this.unsubscribe = this.$store.subscribe(mutation => {
       // Scroll to the project pane after selecting a project on phone resolutions
@@ -85,6 +88,7 @@ export default {
       'selectedProject',
       'selectedProjectIndex',
       'selectedProjectLinks',
+      'selectedProjectCurrentImageIndex',
     ]),
   },
   watch: {
@@ -93,6 +97,14 @@ export default {
       window.requestAnimationFrame(() => {
         this.transitionClass = TransitionClasses.SlideIn;
       });
+    },
+  },
+  methods: {
+    cycleProjectGalleryImage() {
+      this.$store.commit('cycleProjectGalleryImage');
+    },
+    setCurrentGalleryImage(index) {
+      this.$store.commit('setCurrentGalleryImage', index);
     },
   },
 } as ComponentOptions<ProjectGallery>;
@@ -176,6 +188,32 @@ export default {
     &.slide-in {
       animation: image-slide-in $speedSlow;
     }
+
+    &--multi-image {
+      cursor: pointer;
+    }
+  }
+
+  &__project-img-dot-container {
+    display: flex;
+    margin-top: $margin;
+  }
+
+  &__project-img-dot {
+    cursor: pointer;
+    display: flex;
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin: 0 4px;
+    border-radius: 100%;
+    background-color: $colorPrimary;
+    opacity: 0.4;
+
+    &--selected {
+      opacity: 1;
+      animation: fade-in $speedFast;
+    }
   }
 
   @keyframes slide-in {
@@ -195,6 +233,15 @@ export default {
     100% {
       opacity: 1;
       transform: scale(1) translateX(0);
+    }
+  }
+
+  @keyframes fade-in {
+    0% {
+      opacity: 0.4;
+    }
+    100% {
+      opacity: 1;
     }
   }
 }

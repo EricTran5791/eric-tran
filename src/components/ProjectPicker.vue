@@ -4,7 +4,7 @@
       <div
         class="project-picker__item"
         v-bind:class="{ 'project-picker__item--selected': selectedProject.name === item.name }"
-        v-bind:style="{ backgroundImage: `url(${item.imageUrl})` }"
+        v-bind:style="{ backgroundImage: `url(${item.images[0]})` }"
         v-for="(item, index) in items"
         v-on:click="selectProject(item, index)"
         :key="item.name">
@@ -22,18 +22,18 @@ export default Vue.extend({
   props: {
     items: {
       type: Array,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: mapGetters(['selectedProject']),
   methods: {
     selectProject(project: Project, index: number) {
       this.$store.commit('selectProject', {
         project,
-        index
+        index,
       });
-    }
-  }
+    },
+  },
 });
 </script>
 
@@ -45,7 +45,7 @@ export default Vue.extend({
   &__item-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: $margin*2;
+    grid-gap: $margin * 2;
 
     @media (max-width: $mediaPhone) {
       grid-template-columns: 1fr 1fr;

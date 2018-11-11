@@ -1,7 +1,7 @@
 <template>
   <div class="open-source-section">
     <section-header
-        text="Open Source Contributions"
+        text="GitHub"
         v-bind:light-text="true"/>
     <div class="open-source-section__desc">{{ description }}</div>
     
@@ -49,7 +49,7 @@
 import Vue, { ComponentOptions } from 'vue';
 import SectionHeader from './SectionHeader.vue';
 import { ApolloClient, HttpLink } from 'apollo-client-preset';
-import { InMemoryCache } from 'apollo-cache-inmemory'
+import { InMemoryCache } from 'apollo-cache-inmemory';
 import queryCommits from '../queries/commits.graphql';
 import queryIssues from '../queries/issues.graphql';
 import { OpenSourceContribution, OpenSourceContributionType } from '../types';
@@ -66,59 +66,54 @@ export default {
   data() {
     return {
       envGitHubToken: '',
-      description: 'Here are some of my latest GitHub contributions.'
-    }
+      description: 'Here is some of my latest GitHub activity.',
+    };
   },
-  computed: mapGetters([
-    'openSourceContributions',
-    'githubLink'
-  ]),
+  computed: mapGetters(['openSourceContributions', 'githubLink']),
   created(this: OpenSourceSection) {
     this.envGitHubToken = process.env.GITHUB_TOKEN;
 
     const client = new ApolloClient({
-        link: new HttpLink({
-            uri: `https://api.github.com/graphql`,
-            headers: {
-              authorization: `bearer ${this.envGitHubToken}`
-            }
-        }),
-        cache: new InMemoryCache(),
+      link: new HttpLink({
+        uri: `https://api.github.com/graphql`,
+        headers: {
+          authorization: `bearer ${this.envGitHubToken}`,
+        },
+      }),
+      cache: new InMemoryCache(),
     });
 
-    client
-      .query({ query: queryCommits })
-      .then((response: any) => { // TODO: Type the response
-        const data: any[] = response.data.viewer.repositoriesContributedTo.nodes;
-        const commits = data.map(data => {
-          const commitData = data.ref.target.history.nodes[0];
-          const contribution: OpenSourceContribution = {
-            repositoryName: data.name,
-            type: OpenSourceContributionType.Commit,
-            date: commitData.committedDate,
-            url: commitData.commitUrl
-          }
-          return contribution;
-        });
-        this.$store.commit('addOpenSourceContributions', commits);
+    client.query({ query: queryCommits }).then((response: any) => {
+      // TODO: Type the response
+      const data: any[] = response.data.viewer.repositoriesContributedTo.nodes;
+      const commits = data.map(data => {
+        const commitData = data.ref.target.history.nodes[0];
+        const contribution: OpenSourceContribution = {
+          repositoryName: data.name,
+          type: OpenSourceContributionType.Commit,
+          date: commitData.committedDate,
+          url: commitData.commitUrl,
+        };
+        return contribution;
       });
+      this.$store.commit('addOpenSourceContributions', commits);
+    });
 
-    client
-      .query({ query: queryIssues })
-      .then((response: any) => { // TODO: Type the response
-        const data: any[] = response.data.viewer.issues.nodes;
-        const issues = data.map(data => {
-          const contribution: OpenSourceContribution = {
-            repositoryName: data.repository.name,
-            type: OpenSourceContributionType.Issue,
-            date: data.updatedAt,
-            url: data.url
-          }
-          return contribution;
-        });
-        this.$store.commit('addOpenSourceContributions', issues);
+    client.query({ query: queryIssues }).then((response: any) => {
+      // TODO: Type the response
+      const data: any[] = response.data.viewer.issues.nodes;
+      const issues = data.map(data => {
+        const contribution: OpenSourceContribution = {
+          repositoryName: data.repository.name,
+          type: OpenSourceContributionType.Issue,
+          date: data.updatedAt,
+          url: data.url,
+        };
+        return contribution;
       });
-  }
+      this.$store.commit('addOpenSourceContributions', issues);
+    });
+  },
 } as ComponentOptions<OpenSourceSection>;
 </script>
 
@@ -132,7 +127,7 @@ export default {
   padding: $marginSection 0;
 
   @media (min-width: $mediaDesktop) {
-    padding: $marginSection*1.5 0;
+    padding: $marginSection * 1.5 0;
   }
 
   @media (max-width: $mediaPhone) {
@@ -141,14 +136,14 @@ export default {
 
   &__desc {
     color: $colorWhite;
-    margin: $margin*2 0;
+    margin: $margin * 2 0;
   }
 }
 
 .contribution-container {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: $margin*2;
+  grid-gap: $margin * 2;
 
   @media (max-width: $mediaPhone) {
     grid-template-columns: 1fr;

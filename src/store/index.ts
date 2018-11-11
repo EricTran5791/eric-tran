@@ -29,6 +29,13 @@ export const store = new Vuex.Store<State>({
         };
       });
     },
+    selectedProjectCurrentImageIndex: (state: State): number => {
+      const index: number = R.path(
+        ['selectedProject', 'currentImageIndex'],
+        state
+      );
+      return index;
+    },
     openSourceContributions: (state: State) => {
       return state.openSourceContributions
         .sort((a, b) => {
@@ -45,8 +52,9 @@ export const store = new Vuex.Store<State>({
   mutations: {
     selectProject(state: State, payload: SelectedProject) {
       state.selectedProject = {
-        project: payload.project || undefined,
-        index: payload.index || 0,
+        project: payload.project,
+        index: payload.index,
+        currentImageIndex: 0,
       };
     },
     addOpenSourceContributions(
@@ -56,6 +64,20 @@ export const store = new Vuex.Store<State>({
       state.openSourceContributions = state.openSourceContributions.concat(
         payload
       );
+    },
+    cycleProjectGalleryImage(state: State) {
+      const selectedProject = state.selectedProject;
+
+      const upperIndexBound = selectedProject.project.images.length - 1;
+      const newIndex: number =
+        selectedProject.currentImageIndex === upperIndexBound
+          ? 0
+          : selectedProject.currentImageIndex + 1;
+
+      selectedProject.currentImageIndex = newIndex;
+    },
+    setCurrentGalleryImage(state: State, payload: number) {
+      state.selectedProject.currentImageIndex = payload;
     },
   },
 });
