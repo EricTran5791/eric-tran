@@ -30,7 +30,10 @@ export const initialState: State = {
   projects: [
     {
       name: 'Market Madness',
-      url: 'https://github.com/EricTran5791/market-madness',
+      links: [
+        { text: 'Demo', url: 'https://market-madness-game.herokuapp.com' },
+        { url: 'https://github.com/EricTran5791/market-madness' },
+      ],
       description: `A head-to-head deck building game built with React and MobX State Tree.
             Development is halted because this was a hobby project used to learn React.`,
       imageUrl: '/static/images/project-mm.png',
@@ -38,7 +41,7 @@ export const initialState: State = {
     },
     {
       name: 'Personal Website',
-      url: 'https://github.com/EricTran5791/eric-tran',
+      links: [{ url: 'https://github.com/EricTran5791/eric-tran' }],
       description: `My personal website built using Vue.
             My website also leverages Vuex, CSS Grid, and the GitHub GraphQL API.`,
       imageUrl: '/static/images/project-et.png',
@@ -46,7 +49,7 @@ export const initialState: State = {
     },
     {
       name: 'The Improv Embassy',
-      url: 'http://www.improvembassy.com',
+      links: [{ url: 'https://www.improvembassy.com' }],
       description: `The Improv Embassy offers regular classes and shows for improv and sketch comedy.
             Highly customized and responsive components include a blogging platform, an events
             calendar, and an e-commerce shop.`,
@@ -55,7 +58,7 @@ export const initialState: State = {
     },
     {
       name: 'Ottawa Improv Festival',
-      url: 'http://www.ottawaimprovfestival.com/',
+      links: [{ url: 'https://www.ottawaimprovfestival.com/' }],
       description: `The annual Ottawa Improv Festival features a variety of local and out-of-town acts.
             The website is a central hub for festival information, ticket sales, and workshop registrations.`,
       imageUrl: '/static/images/project-oif.png',
@@ -63,8 +66,12 @@ export const initialState: State = {
     },
     {
       name: 'Length Weight Converter',
-      url:
-        'https://play.google.com/store/apps/details?id=ca.erictran.lengthweightconverter',
+      links: [
+        {
+          url:
+            'https://play.google.com/store/apps/details?id=ca.erictran.lengthweightconverter',
+        },
+      ],
       description: `This was my first Android app.
             The premise is simple: to convert length and weight measurements.
             Overall, it was a great learning experience and I still use the app every now and then.`,

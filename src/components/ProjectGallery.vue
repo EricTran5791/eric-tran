@@ -21,8 +21,10 @@
         </div>
         <div class="project-gallery__project-desc" v-bind:class="[transitionClass]">{{ selectedProject.description }}</div>
         <button-link
-          v-if="selectedProjectLink.url"
-          v-bind:link="selectedProjectLink"
+          v-if="selectedProjectLinks.length > 0"
+          v-for="link in selectedProjectLinks"
+          :key="link.url"
+          v-bind:link="link"
           buttonClass="black"
           iconClass="open_in_new"/>
       </div>
@@ -56,13 +58,13 @@ export default {
   components: { ProjectPicker, ButtonLink },
   data() {
     return {
-      transitionClass: ''
-    }
+      transitionClass: '',
+    };
   },
   created(this: ProjectGallery) {
     this.$store.commit('selectProject', {
       project: this.projects[0],
-      index: 0
+      index: 0,
     });
   },
   mounted(this: ProjectGallery) {
@@ -70,7 +72,7 @@ export default {
       // Scroll to the project pane after selecting a project on phone resolutions
       if (mutation.type === 'selectProject' && window.innerWidth <= 767) {
         const projectPane = this.$refs.projectPaneFirst as Element;
-        projectPane.scrollIntoView({ behavior: "smooth", block: "start" }); // TODO: Use polyfill for scrollIntoView
+        projectPane.scrollIntoView({ behavior: 'smooth', block: 'start' }); // TODO: Use polyfill for scrollIntoView
       }
     });
   },
@@ -79,22 +81,26 @@ export default {
   },
   computed: {
     ...mapState(['projects']),
-    ...mapGetters(['selectedProject', 'selectedProjectIndex', 'selectedProjectLink']),
+    ...mapGetters([
+      'selectedProject',
+      'selectedProjectIndex',
+      'selectedProjectLinks',
+    ]),
   },
   watch: {
-      selectedProjectIndex(this: ProjectGallery) {
+    selectedProjectIndex(this: ProjectGallery) {
       this.transitionClass = TransitionClasses.None;
       window.requestAnimationFrame(() => {
         this.transitionClass = TransitionClasses.SlideIn;
       });
-    }
-  }
+    },
+  },
 } as ComponentOptions<ProjectGallery>;
 </script>
 
 <style lang="scss" scoped>
 .project-gallery {
-  margin: $margin*2 0;
+  margin: $margin * 2 0;
 
   &__project {
     display: grid;
@@ -105,8 +111,8 @@ export default {
 
     @media (max-width: $mediaPhone) {
       grid-template-columns: 1fr;
-      grid-gap: $margin*2;
-      margin-top: $marginSection/2;      
+      grid-gap: $margin * 2;
+      margin-top: $marginSection/2;
     }
   }
 
@@ -134,10 +140,10 @@ export default {
   &__project-tag-container {
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: $margin*2;
+    margin-bottom: $margin * 2;
 
     @media (max-width: $mediaPhone) {
-        margin-bottom: $margin;
+      margin-bottom: $margin;
     }
   }
 
@@ -151,14 +157,14 @@ export default {
 
   &__project-desc {
     max-width: 600px;
-    margin-bottom: $margin*2;
+    margin-bottom: $margin * 2;
 
     &.slide-in {
       animation: slide-in $speedSlow;
     }
 
     @media (max-width: $mediaPhone) {
-        margin-bottom: $margin;
+      margin-bottom: $margin;
     }
   }
 
@@ -184,7 +190,7 @@ export default {
   @keyframes image-slide-in {
     0% {
       opacity: 0.6;
-      transform: scale(0.95) translateX(24%);      
+      transform: scale(0.95) translateX(24%);
     }
     100% {
       opacity: 1;

@@ -5,7 +5,7 @@ export type Link = {
 
 export type Project = {
   name: string;
-  url: string;
+  links: Link[];
   description: string;
   imageUrl: string;
   tags: ProjectTags[];
